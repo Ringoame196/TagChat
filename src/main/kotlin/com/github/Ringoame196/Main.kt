@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin
 class Main : JavaPlugin() {
     override fun onEnable() {
         super.onEnable()
-        val plugin = this
+        // コマンド関係
         val tagChatCommand = getCommand("tagchat")
         tagChatCommand!!.setExecutor(Command())
         tagChatCommand.tabCompleter = TabCompleter()

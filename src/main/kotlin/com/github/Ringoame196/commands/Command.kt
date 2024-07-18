@@ -13,7 +13,7 @@ class Command : CommandExecutor {
         val playerManager = PlayerManager()
         val sendChatTags = mutableListOf<String>()
 
-        if (sender !is Player) {
+        if (sender !is Player) { // プレイヤー以外実行不可
             sender.sendMessage("${ChatColor.RED}プレイヤーのみ実行可能です")
             return true
         }
@@ -24,16 +24,16 @@ class Command : CommandExecutor {
         // タグ
         val tag = args[0]
         val senderPlayerChatTag = playerManager.acquisitionChatTag(sender)
-        if (senderPlayerChatTag.contains(tag)) {
+        if (senderPlayerChatTag.contains(tag)) { // 指定したタグをプレイヤーが持っていた場合
             sendChatTags.add(tag)
-        } else if (tag == "chat:all") {
+        } else if (tag == "chat:all") { // chat:allを指定した場合 指定可能のタグを全て追加
             sendChatTags.addAll(senderPlayerChatTag)
-        } else {
-            sender.sendMessage("${ChatColor.RED}あなたは${tag}タグを持っていません")
+        } else { // 持っていない または chatから始まったタグを持っていない場合
+            sender.sendMessage("${ChatColor.RED}あなたは${tag}タグを指定することはできません")
             return true
         }
 
-        var receivingCount = 0
+        var receivingCount = 0 // 送信人数
         // メッセージ
         val message = "${ChatColor.AQUA}[TagChat] ${ChatColor.WHITE}<${sender.displayName}> ${args.drop(1).joinToString(" ").replace("&","§")}"
 
@@ -42,7 +42,7 @@ class Command : CommandExecutor {
             if (onlinePlayer == sender) { // 送ったプレイヤー自身はスキップする
                 continue
             }
-            for (sendChatTag in sendChatTags) {
+            for (sendChatTag in sendChatTags) { // 指定されているタグをonlinePlayerが持っているか
                 if (onlinePlayer.scoreboardTags.contains(sendChatTag)) {
                     onlinePlayer.sendMessage(message)
                     receivingCount ++
@@ -50,7 +50,7 @@ class Command : CommandExecutor {
                 }
             }
         }
-        // 送信者にメッセージ送信
+        // 送信者にメッセージ送信(送信人数情報付き)
         sender.sendMessage(message + "${ChatColor.GREEN}\n(送信人数：${receivingCount}人)")
 
         return true
