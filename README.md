@@ -8,7 +8,7 @@
 /tagchat [タグ名(chat:allの場合はそのプレイヤーが指定できるタグ どれかを持っているプレイヤー] [メッセージ]
 
 ## 使い方
-opの方が、それぞれのプレイヤーにタグをつける <br>
+opの方が、それぞれのプレイヤーにタグをつける(chatから始まるタグ) <br>
 /tagchatコマンドでメッセージ送信
 
 ![image](https://github.com/user-attachments/assets/474830ea-b16e-4fb7-986c-c0226830c5ca)
